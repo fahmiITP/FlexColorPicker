@@ -47,13 +47,21 @@ open class AdjustedHitBoxColorControl: AbstractColorControl {
     /// The alighnment rectangle of the color control in its own coordinate system.
     // FIX iOS 15
     private var adjustedHitBoxControlAlreadySet = false
-    public var contentBounds: CGRect {
-        if !adjustedHitBoxControlAlreadySet {
-            adjustedHitBoxControlAlreadySet = true
-            layoutIfNeeded()
+        public var contentBounds: CGRect {
+            if #available(iOS 15, *) {
+                if !adjustedHitBoxControlAlreadySet {
+                    adjustedHitBoxControlAlreadySet = true
+                    layoutIfNeeded()
+                }
+                return contentView.frame
+            } else {
+            if !adjustedHitBoxControlAlreadySet {
+                adjustedHitBoxControlAlreadySet = true
+                layoutIfNeeded()
+            }
+            return contentView.frame
+            }
         }
-        return contentView.frame
-    }
 
     /// A single hit box inset value for all inset directions (top, bottom, left, right) meant to only be used from interface builder.
     /// - Important: Do **not** use this property from code. Use hitBoxInset**s** property instead.
