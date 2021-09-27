@@ -47,9 +47,14 @@ open class ColorPaletteControl: ColorControlWithThumbView {
             updatePaletteImagesAndThumb(isInteractive: false)
         }
     }
+    // FIX iOS 15
+    private var colorPaletteControlAlreadySet = false
     open override var bounds: CGRect {
         didSet {
-            updatePaletteImagesAndThumb(isInteractive: false)
+            if !colorPaletteControlAlreadySet {
+                colorPaletteControlAlreadySet = true
+                updatePaletteImagesAndThumb(isInteractive: false)
+            }
         }
     }
     
