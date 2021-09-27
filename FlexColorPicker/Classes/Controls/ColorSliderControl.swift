@@ -75,11 +75,16 @@ open class ColorSliderControl: ColorControlWithThumbView {
             updateThumbAndGradient(isInteractive: false)
         }
     }
-
+    
+    // FIX iOS 15
+    private var colorSliderControlAlreadySet = false
     open override var bounds: CGRect {
         didSet {
-            updateCornerRadius()
-            updateThumbAndGradient(isInteractive: false)
+            if !colorSliderControlAlreadySet {
+                colorSliderControlAlreadySet = true
+                updateCornerRadius()
+                updateThumbAndGradient(isInteractive: false)
+            }
         }
     }
 
