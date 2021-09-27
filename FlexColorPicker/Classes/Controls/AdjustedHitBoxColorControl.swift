@@ -45,10 +45,11 @@ public let colorControlWithThumbViewDefaultHitBoxInsets = UIEdgeInsets(top: defa
 open class AdjustedHitBoxColorControl: AbstractColorControl {
 
     /// The alighnment rectangle of the color control in its own coordinate system.
+    // FIX iOS 15
+    private var adjustedHitBoxControlAlreadySet = false
     public var contentBounds: CGRect {
-        if #available(iOS 15, *) {
-            /// Do nothing here
-        } else {
+        if !adjustedHitBoxControlAlreadySet {
+            adjustedHitBoxControlAlreadySet = true
             layoutIfNeeded()
         }
         return contentView.frame
